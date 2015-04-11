@@ -39,9 +39,9 @@ public class CommandsLexerTests
 		Token[] testTokens =
 			{
 				new Token(TokenKind.Command, "Command"),
-				new Token(TokenKind.Argument, "R1"),
+				new Token(TokenKind.Register, "R1"),
 				new Token(TokenKind.Delimiter, ","),
-				new Token(TokenKind.Argument, "1"),
+				new Token(TokenKind.Number, "1"),
 				new Token(TokenKind.Delimiter, ";")
 			};
 
@@ -60,7 +60,7 @@ public class CommandsLexerTests
 		{
 			Token testToken = testTokens[i];
 
-			source.append(testToken.getText());
+			source.append(testToken.getValue());
 
 			// Append all space characters
 			for (int j = 0, countTwo = spaceCharacters.size(); j < countTwo; j++)
@@ -82,15 +82,15 @@ public class CommandsLexerTests
 	public void parse_SourceContainsOnlyArguments_ReturnsArgumentTokens()
 	{
 		// Arrange
-		String[] arguments = {
-			"R123", "-0123", "0123"
+		String[] numbers = {
+			"-0123", "0123", "1234"
 		};
 
-		for (String argument : arguments)
+		for (String number : numbers)
 		{
-			Token token = new Token(TokenKind.Argument, argument);
+			Token token = new Token(TokenKind.Number, number);
 
-			this._commandsLexer.setSource(argument);
+			this._commandsLexer.setSource(number);
 
 			// Act
 			List<Token> tokens = this._commandsLexer.parse();
@@ -153,6 +153,30 @@ public class CommandsLexerTests
 	}
 
 	@Test
+	public void parse_SourceContainsOnlyRegisters_ReturnsRegisterTokens()
+	{
+		// Arrange
+		String[] registers = {
+			"R1", "R234", "R1230"
+		};
+
+		for (String register : registers)
+		{
+			Token token = new Token(TokenKind.Register, register);
+
+			this._commandsLexer.setSource(register);
+
+			// Act
+			List<Token> tokens = this._commandsLexer.parse();
+
+			// Assert
+			Assert.assertEquals(1, tokens.size());
+
+			Assert.assertEquals(token, tokens.get(0));
+		}
+	}
+
+	@Test
 	public void parse_SourceContainsOnlySpaceCharacters_ReturnsEmptyTokensList()
 	{
 		// Arrange
@@ -197,7 +221,7 @@ public class CommandsLexerTests
 
 		for (int i = 0, count = testTokens.length; i < count; i++)
 		{
-			source.append(testTokens[i].getText());
+			source.append(testTokens[i].getValue());
 		}
 
 		this._commandsLexer.setSource(source.toString());

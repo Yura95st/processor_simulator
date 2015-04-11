@@ -24,8 +24,10 @@ public class CommandsLexer extends Lexer<Token> implements ICommandsLexer
 			{
 				this.add(new TokenDefinition("[a-zA-Z][a-zA-Z_-]*",
 					TokenKind.Command));
-				this.add(new TokenDefinition("(R[1-9][0-9]*)|(-?[0-9]+)",
-					TokenKind.Argument));
+				this.add(new TokenDefinition("R[1-9][0-9]*",
+					TokenKind.Register));
+				this.add(new TokenDefinition("-?[0-9]+",
+					TokenKind.Number));
 				this.add(new TokenDefinition("[,;]", TokenKind.Delimiter));
 			}
 		};
@@ -116,9 +118,9 @@ public class CommandsLexer extends Lexer<Token> implements ICommandsLexer
 
 		Token longestToken =
 			Collections.max(foundTokens, (n1, n2) -> Integer.compare(n1
-					.getText().length(), n2.getText().length()));
+					.getValue().length(), n2.getValue().length()));
 
-		this._offset += longestToken.getText().length();
+		this._offset += longestToken.getValue().length();
 
 		return longestToken;
 	}

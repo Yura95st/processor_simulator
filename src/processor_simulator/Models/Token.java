@@ -7,15 +7,15 @@ public class Token
 {
 	private final TokenKind _kind;
 
-	private final String _text;
+	private final String _value;
 
-	public Token(TokenKind nodeKind, String text)
+	public Token(TokenKind tokenKind, String value)
 	{
-		Guard.notNull(nodeKind, "nodeKind");
-		Guard.notNull(text, "text");
+		Guard.notNull(tokenKind, "tokenKind");
+		Guard.notNull(value, "value");
 
-		this._kind = nodeKind;
-		this._text = text;
+		this._kind = tokenKind;
+		this._value = value;
 	}
 
 	@Override
@@ -38,14 +38,14 @@ public class Token
 		{
 			return false;
 		}
-		if (this._text == null)
+		if (this._value == null)
 		{
-			if (other._text != null)
+			if (other._value != null)
 			{
 				return false;
 			}
 		}
-		else if (!this._text.equals(other._text))
+		else if (!this._value.equals(other._value))
 		{
 			return false;
 		}
@@ -57,9 +57,9 @@ public class Token
 		return this._kind;
 	}
 
-	public String getText()
+	public String getValue()
 	{
-		return this._text;
+		return this._value;
 	}
 
 	@Override
@@ -68,9 +68,10 @@ public class Token
 		final int prime = 31;
 		int result = 1;
 		result =
-			prime * result + ((this._kind == null) ? 0 : this._kind.hashCode());
+				prime * result + ((this._kind == null) ? 0 : this._kind.hashCode());
 		result =
-			prime * result + ((this._text == null) ? 0 : this._text.hashCode());
+				prime * result
+				+ ((this._value == null) ? 0 : this._value.hashCode());
 		return result;
 	}
 }
