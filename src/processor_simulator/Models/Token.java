@@ -18,6 +18,40 @@ public class Token
 		this._text = text;
 	}
 
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (this.getClass() != obj.getClass())
+		{
+			return false;
+		}
+		Token other = (Token) obj;
+		if (this._kind != other._kind)
+		{
+			return false;
+		}
+		if (this._text == null)
+		{
+			if (other._text != null)
+			{
+				return false;
+			}
+		}
+		else if (!this._text.equals(other._text))
+		{
+			return false;
+		}
+		return true;
+	}
+
 	public TokenKind getKind()
 	{
 		return this._kind;
@@ -26,5 +60,17 @@ public class Token
 	public String getText()
 	{
 		return this._text;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result =
+			prime * result + ((this._kind == null) ? 0 : this._kind.hashCode());
+		result =
+			prime * result + ((this._text == null) ? 0 : this._text.hashCode());
+		return result;
 	}
 }
