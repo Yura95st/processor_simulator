@@ -51,7 +51,7 @@ public class CommandsParser implements ICommandsParser
 					TokenKind.Delimiter, ","));
 
 				this.put(SpecialTokenKind.Termination, new Token(
-					TokenKind.Delimiter, "."));
+					TokenKind.Delimiter, ";"));
 			}
 		});
 	}
@@ -203,7 +203,7 @@ public class CommandsParser implements ICommandsParser
 		{
 			throw new CommandIsInvalidException(
 				String.format(
-					"Invalid command at token '%1$s'. Expected alternation or concatenation token.",
+					"Invalid command at token '%1$s'. Expected concatenation or termination token.",
 					currentToken.getValue()));
 		}
 	}
