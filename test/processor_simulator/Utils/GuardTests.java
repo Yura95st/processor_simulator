@@ -5,6 +5,28 @@ import org.junit.Test;
 public class GuardTests
 {
 	@Test
+	public void moreThanZero_IntegerNumberisMoreThanZero_DoesNotThrowAnyException()
+	{
+		int number = 1;
+
+		Guard.moreThanZero(number, "number");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void moreThanZero_NumberIsEqualToZero_ThrowsIllegalArgumentException()
+	{
+		int number = 0;
+		Guard.moreThanZero(number, "number");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void moreThanZero_NumberIsLessThanZero_ThrowsIllegalArgumentException()
+	{
+		int number = -1;
+		Guard.moreThanZero(number, "number");
+	}
+
+	@Test
 	public void notNull_ObjectIsNotNull_DoesNotThrowAnyException()
 	{
 		Object tempObject = new Object();
