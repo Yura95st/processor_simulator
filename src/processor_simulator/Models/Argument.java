@@ -7,12 +7,11 @@ public class Argument
 {
 	private final ArgumentType _type;
 
-	private final String _value;
+	private final int _value;
 
-	public Argument(ArgumentType type, String value)
+	public Argument(ArgumentType type, int value)
 	{
 		Guard.notNull(type, "type");
-		Guard.notNullOrEmpty(value, "value");
 
 		this._type = type;
 		this._value = value;
@@ -38,14 +37,7 @@ public class Argument
 		{
 			return false;
 		}
-		if (this._value == null)
-		{
-			if (other._value != null)
-			{
-				return false;
-			}
-		}
-		else if (!this._value.equals(other._value))
+		if (this._value != other._value)
 		{
 			return false;
 		}
@@ -57,7 +49,7 @@ public class Argument
 		return this._type;
 	}
 
-	public String getValue()
+	public int getValue()
 	{
 		return this._value;
 	}
@@ -69,9 +61,7 @@ public class Argument
 		int result = 1;
 		result =
 			prime * result + ((this._type == null) ? 0 : this._type.hashCode());
-		result =
-			prime * result
-				+ ((this._value == null) ? 0 : this._value.hashCode());
+		result = prime * result + this._value;
 		return result;
 	}
 }

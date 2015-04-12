@@ -147,14 +147,24 @@ public class CommandsParser implements ICommandsParser
 			(token.getKind() == TokenKind.Register) ? ArgumentType.Register
 				: ArgumentType.Number;
 
-		Argument argument = new Argument(argumentType, token.getValue());
+		String argumentValue = token.getValue();
+
+		if (argumentType == ArgumentType.Register)
+		{
+			// Get the register's number.
+			argumentValue = argumentValue.substring(1);
+		}
+
+		Argument argument =
+			new Argument(argumentType, Integer.parseInt(argumentValue));
 
 		return argument;
 	}
 
 	private Command getCommandFromToken(Token token)
 	{
-		CommandType commandType = this._commandTypesDictionary.get(token.getValue().toLowerCase());
+		CommandType commandType =
+			this._commandTypesDictionary.get(token.getValue().toLowerCase());
 
 		if (commandType == null)
 		{

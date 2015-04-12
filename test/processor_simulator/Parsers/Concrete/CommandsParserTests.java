@@ -64,8 +64,7 @@ public class CommandsParserTests
 		this._commandsParser.setTokens(Arrays.asList(tokens));
 
 		// Arrange - create arguments
-		Argument argumentA =
-			new Argument(ArgumentType.Register, tokenB.getValue());
+		Argument argumentA = new Argument(ArgumentType.Register, 1);
 
 		// Arrange - create testCommands
 		Command commandOne = new Command(CommandType.Unknown);
@@ -220,12 +219,9 @@ public class CommandsParserTests
 		this._commandsParser.setTokens(Arrays.asList(tokens));
 
 		// Arrange - create arguments
-		Argument argumentA =
-			new Argument(ArgumentType.Register, tokenC.getValue());
-		Argument argumentB =
-			new Argument(ArgumentType.Register, tokenD.getValue());
-		Argument argumentC =
-			new Argument(ArgumentType.Number, tokenE.getValue());
+		Argument argumentA = new Argument(ArgumentType.Register, 1);
+		Argument argumentB = new Argument(ArgumentType.Register, 2);
+		Argument argumentC = new Argument(ArgumentType.Number, 1234);
 
 		// Arrange - create testCommands
 		Command commandOne = new Command(CommandType.Load);
