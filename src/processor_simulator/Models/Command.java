@@ -84,4 +84,33 @@ public class Command
 
 		this._arguments = new ArrayList<Argument>(arguments);
 	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append(String.format("%1$s ", this._type));
+
+		boolean isFirstArgument = true;
+
+		for (Argument argument : this._arguments)
+		{
+			if (!isFirstArgument)
+			{
+				stringBuilder.append(", ");
+			}
+			else
+			{
+				isFirstArgument = false;
+			}
+
+			stringBuilder.append(String.format("{%1$s; %2$s}",
+				argument.getType(), argument.getValue()));
+		}
+
+		String value = stringBuilder.toString();
+
+		return value;
+	}
 }
