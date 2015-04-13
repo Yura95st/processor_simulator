@@ -41,7 +41,7 @@ public class CommandsParser implements ICommandsParser
 		this.setCommandTypesDictionary(new HashMap<String, CommandType>() {
 			{
 				this.put("load", CommandType.Load);
-				this.put("move", CommandType.Move);
+				this.put("move", CommandType.RightMove);
 			}
 		});
 

@@ -228,7 +228,7 @@ public class CommandsParserTests
 
 		commandOne.setArguments(Arrays.asList(argumentA, argumentB, argumentC));
 
-		Command commandTwo = new Command(CommandType.Move);
+		Command commandTwo = new Command(CommandType.RightMove);
 
 		commandTwo.setArguments(Arrays.asList(argumentA));
 

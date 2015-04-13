@@ -2,7 +2,10 @@ package processor_simulator.Enums;
 
 public enum CommandType
 {
+	Add,
 	Load,
-	Move,
+	RightMove,
+	LeftMove,
+	Xor,
 	Unknown
 }
