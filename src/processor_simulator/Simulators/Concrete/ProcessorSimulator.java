@@ -17,7 +17,7 @@ import processor_simulator.Utils.Guard;
 import processor_simulator.Utils.NumberUtils;
 
 public class ProcessorSimulator implements IProcessorSimulator,
-IObservable<ITactsListener>
+		IObservable<ITactsListener>
 {
 	private int _commandsCounter;
 
@@ -99,7 +99,7 @@ IObservable<ITactsListener>
 
 	@Override
 	public void performCommand(Command command)
-			throws CommandIsInvalidException, CommandArgumentIsInvalidException
+		throws CommandIsInvalidException, CommandArgumentIsInvalidException
 	{
 		Guard.notNull(command, "command");
 
@@ -115,9 +115,9 @@ IObservable<ITactsListener>
 		CommandType commandType = command.getType();
 
 		if (commandType == CommandType.Add || commandType == CommandType.Load
-				|| commandType == CommandType.LeftMove
-				|| commandType == CommandType.RightMove
-				|| commandType == CommandType.Xor)
+			|| commandType == CommandType.LeftMove
+			|| commandType == CommandType.RightMove
+			|| commandType == CommandType.Xor)
 		{
 			this.performBinaryCommand(command);
 		}
@@ -138,7 +138,7 @@ IObservable<ITactsListener>
 	}
 
 	private void checkRegisterNumber(int registerNumber)
-			throws CommandArgumentIsInvalidException
+		throws CommandArgumentIsInvalidException
 	{
 		if (!this.isRegisterNumberValid(registerNumber))
 		{
@@ -149,7 +149,7 @@ IObservable<ITactsListener>
 	}
 
 	private int getValueFromArgument(Argument argument)
-			throws CommandArgumentIsInvalidException
+		throws CommandArgumentIsInvalidException
 	{
 		int value;
 
@@ -166,7 +166,7 @@ IObservable<ITactsListener>
 	}
 
 	private int getValueFromRegister(int registerNumber)
-			throws CommandArgumentIsInvalidException
+		throws CommandArgumentIsInvalidException
 	{
 		this.checkRegisterNumber(registerNumber);
 
@@ -199,14 +199,14 @@ IObservable<ITactsListener>
 	}
 
 	private void performBinaryCommand(Command binaryCommand)
-			throws CommandArgumentIsInvalidException, CommandIsInvalidException
+		throws CommandArgumentIsInvalidException, CommandIsInvalidException
 	{
 		List<Argument> arguments = binaryCommand.getArguments();
 
 		if (arguments.size() < 2)
 		{
 			throw new CommandIsInvalidException(
-					"Command must have at least two arguments.");
+				"Command must have at least two arguments.");
 		}
 
 		Argument argumentOne = arguments.get(0);
@@ -222,57 +222,56 @@ IObservable<ITactsListener>
 
 		int registerNumber = argumentOne.getValue();
 
-		int value = 0;
-
-		int castedArgument =
+		int castedArgumentValue =
 			NumberUtils.castValue(this.getValueFromArgument(argumentTwo),
 				this._numberOfBits);
+
+		int result = 0;
 
 		switch (binaryCommand.getType())
 		{
 			case Add:
 			{
-				value =
-						this.getValueFromRegister(registerNumber) + castedArgument;
+				result =
+					this.getValueFromRegister(registerNumber)
+						+ castedArgumentValue;
 				break;
 			}
 
 			case Load:
 			{
-				value = this.getValueFromArgument(argumentTwo);
+				result = this.getValueFromArgument(argumentTwo);
 				break;
 			}
 
 			case LeftMove:
 			{
-				value =
+				result =
 					this.leftMove(this.getValueFromRegister(registerNumber),
-						castedArgument);
+						castedArgumentValue);
 
 				break;
 			}
 
 			case RightMove:
 			{
-				value =
+				result =
 					this.rightMove(this.getValueFromRegister(registerNumber),
-						castedArgument);
+						castedArgumentValue);
 
 				break;
 			}
 
 			case Xor:
 			{
-				value =
-						this.getValueFromRegister(registerNumber)
-						^ NumberUtils.castValue(
-							this.getValueFromArgument(argumentTwo),
-							this._numberOfBits);
+				result =
+					this.getValueFromRegister(registerNumber)
+						^ castedArgumentValue;
 				break;
 			}
 		}
 
-		this.putValueToTheRegister(registerNumber, value);
+		this.putValueToTheRegister(registerNumber, result);
 	}
 
 	private void performTact()
@@ -286,7 +285,7 @@ IObservable<ITactsListener>
 	}
 
 	private void putValueToTheRegister(int registerNumber, int value)
-			throws CommandArgumentIsInvalidException
+		throws CommandArgumentIsInvalidException
 	{
 		this.checkRegisterNumber(registerNumber);
 
