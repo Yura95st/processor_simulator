@@ -1,0 +1,19 @@
+Load R1, 8191;
+
+Load R2, -8192;
+
+Load R3, -1;
+
+Add R1, 1;
+
+Add R2, -1;
+
+Xor R1, R2;
+
+RightMove R1, 1;
+
+LeftMove R1, 1;
+
+RightMove R2, -1;
+
+LeftMove R2, -1;
